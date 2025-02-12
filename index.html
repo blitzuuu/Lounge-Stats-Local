@@ -71,6 +71,7 @@
         <!-- Display LR with gain/loss and superscript on a single line -->
         <div class="header">
             <p id="lr"></p>
+            <span> </span> <!-- Added space between LR and MMR -->
             <p id="mmr"></p>
         </div>
 
@@ -112,14 +113,14 @@
                 }
 
                 // Update the HTML content with superscript for LR and MMR on the first line
-                document.getElementById('lr').innerHTML = `${lrValue} <sup class="${getChangeClass(lrChange)}">${lrChange}</sup> LR`;
-                document.getElementById('mmr').innerHTML = `${mmrValue} <sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup> MMR`;
+                document.getElementById('lr').innerHTML = `${lrValue}<sup class="${getChangeClass(lrChange)}">${lrChange}</sup> LR`;
+                document.getElementById('mmr').innerHTML = `${mmrValue}<sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup> MMR`;
 
                 // Display LR change only (with superscript) on the second line
-                document.getElementById('lrChange').innerHTML = `${lrValue} <sup class="${getChangeClass(lrChange)}">${lrChange}</sup> LR`;
+                document.getElementById('lrChange').innerHTML = `${lrValue}<sup class="${getChangeClass(lrChange)}">${lrChange}</sup> LR`;
 
                 // Display MMR change only (with superscript) on the third line
-                document.getElementById('mmrChange').innerHTML = `${mmrValue} <sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup> MMR`;
+                document.getElementById('mmrChange').innerHTML = `${mmrValue}<sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup> MMR`;
             })
             .catch(error => console.error('Error loading stats.json:', error));
     </script>
