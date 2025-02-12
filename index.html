@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: black;
+            background: transparent;  /* Makes background fully transparent */
             color: white;
             font-size: 28px;
         }
@@ -22,10 +22,11 @@
             display: inline-block;
             width: 300px;
             font-weight: bold;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black box */
         }
-        .lr { background-color: #4286f4; } /* Blue */
-        .mmr { background-color: #b0f442; } /* Green */
-        .change { background-color: #fc0; } /* Yellow */
+        .lr { background-color: rgba(66, 134, 244, 0.7); } /* Blue */
+        .mmr { background-color: rgba(176, 244, 66, 0.7); } /* Green */
+        .change { background-color: rgba(252, 192, 0, 0.7); } /* Yellow */
     </style>
 </head>
 <body>
