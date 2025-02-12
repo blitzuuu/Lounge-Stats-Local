@@ -21,7 +21,7 @@ jobs:
         run: pip install beautifulsoup4 requests
 
       - name: Run script
-        run: python script.py
+        run: LoungeStats.py
 
       - name: Commit and push if changed
         run: |
