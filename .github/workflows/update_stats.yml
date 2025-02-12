@@ -33,9 +33,9 @@ jobs:
           git push https://github.com/${{ github.repository }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
 
           - name: Test Commit
-  run: |
-    touch testfile.txt
-    git add testfile.txt
-    git commit -m "Test commit"
-    git push https://github.com/${{ github.repository }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+            run: |
+              touch testfile.txt
+              git add testfile.txt
+              git commit -m "Test commit"
+              git push https://github.com/${{ github.repository }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
 
