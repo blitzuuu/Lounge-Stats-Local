@@ -61,7 +61,11 @@
 
         /* Container for subsequent lines to show LR/MMR changes below */
         .changes {
-            margin-top: 10px; /* Space between the values and their changes */
+            margin-top: 20px; /* Space between the first and subsequent lines */
+        }
+
+        .header span {
+            margin: 0 10px; /* Add space between LR and MMR on the top row */
         }
     </style>
 </head>
@@ -75,13 +79,14 @@
             <p id="mmr"></p>
         </div>
 
-        <!-- Display LR change on second line (with superscript) -->
+        <!-- Space between the first row and the next rows -->
         <div class="changes">
+            <!-- Display LR change on second line (with superscript) -->
             <p id="lrChange"></p>
         </div>
 
-        <!-- Display MMR with gain/loss and superscript on third line -->
         <div class="changes">
+            <!-- Display MMR with gain/loss and superscript on third line -->
             <p id="mmrChange"></p>
         </div>
     </div>
