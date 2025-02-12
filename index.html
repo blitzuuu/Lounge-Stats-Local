@@ -86,16 +86,12 @@
                     }
                 }
 
-                // Update the HTML content with superscript for gain/loss right after LR/MMR
-                document.getElementById('lr').innerHTML = `${lrValue} <sup class="${getChangeClass(lrChange)}">${lrChange}</sup> LR`;
-                document.getElementById('mmr').innerHTML = `${mmrValue} <sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup> MMR`;
+                // Update the HTML content with superscript for gain/loss right after LR/MMR without space
+                document.getElementById('lr').innerHTML = `${lrValue}<sup class="${getChangeClass(lrChange)}">${lrChange}</sup> LR`;
+                document.getElementById('mmr').innerHTML = `${mmrValue}<sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup> MMR`;
             })
             .catch(error => console.error('Error loading stats.json:', error));
     </script>
-
-</body>
-
-</html>
 
 </body>
 
