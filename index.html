@@ -27,11 +27,12 @@
             position: relative; /* Needed for absolute positioning of content */
         }
 
-        /* Ensure text is positioned in the top-left corner */
+        /* Ensure text is positioned in the top-left corner and does not wrap */
         .container {
             position: absolute; /* Absolute positioning to place the text anywhere on the page */
             top: 10px;  /* Set distance from the top */
             left: 10px; /* Set distance from the left */
+            white-space: nowrap; /* Prevent wrapping of the text */
         }
 
         /* Optional: Make the superscript smaller or adjust its position */
