@@ -4,39 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LR and MMR Display</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <style>
         body, html {
             height: 100%;
             margin: 0;
-            background-color: transparent; /* Keep background transparent */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
             color: black;
-            font-family: 'Roboto Mono', monospace;
-            font-weight: 600;
+            font-family: Arial, sans-serif;
             font-size: 24px;
-            display: flex; /* Needed for positioning */
-            flex-direction: column; /* Stack elements vertically */
-            align-items: flex-start; /* Align to the left */
-            justify-content: flex-start; /* Align to the top */
-            padding: 20px; /* Add some padding around the content */
         }
 
         .container {
+            text-align: center;
             background: transparent;
-        }
-
-        #lr, #mmr {
-            margin-bottom: 10px; /* Add space between LR and MMR */
         }
 
         sup {
             font-size: 0.8em;
             vertical-align: super;
-            font-style: italic;
         }
 
+        /* Styles for gain/loss colors */
         .gain {
             color: green;
         }
@@ -57,7 +48,28 @@
     </div>
 
     <script>
-        // ... (JavaScript code remains the same)
+        fetch('stats.json')
+            .then(response => response.json())
+            .then(data => {
+                const updateStat = (elementId, statText) => {
+                    const value = statText.split(' ')[0];
+                    const change = statText.split(' ')[2];
+                    const changeNum = parseInt(change.replace('+', '')); // Extract number
+
+                    let changeClass = "neutral"; // Default class
+                    if (changeNum > 0) {
+                        changeClass = "gain";
+                    } else if (changeNum < 0) {
+                        changeClass = "loss";
+                    }
+
+                    document.getElementById(elementId).innerHTML = `${value} ${elementId.toUpperCase()} <sup class="${changeClass}">${change}</sup>`;
+                };
+
+                updateStat('lr', data.LR);
+                updateStat('mmr', data.MMR);
+            })
+            .catch(error => console.error('Error loading stats.json:', error));
     </script>
 </body>
 </html>
