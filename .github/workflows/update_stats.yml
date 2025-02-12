@@ -6,36 +6,46 @@ on:
   workflow_dispatch:  # Allows manual trigger
 
 jobs:
-  update:
+  update-stats:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.9"
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
 
-      - name: Install dependencies
-        run: pip install beautifulsoup4 requests
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-      - name: Run script
-        run: python LoungeStats.py
+    - name: Verify repository files
+      run: |
+        echo "Listing files in the repository:"
+        ls -l
 
-      - name: Commit and Push stats.json
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions@github.com"
-          git add stats.json
-          git status # Check which files are staged for commit
-          git commit -m "Update stats.json with latest data" || echo "No changes to commit"
-          git push https://github.com/${{ github.repository }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+    - name: Run Python script
+      run: |
+        echo "Running Python script to create stats.json"
+        python your-script.py
 
-          - name: Test Commit
-            run: |
-              touch testfile.txt
-              git add testfile.txt
-              git commit -m "Test commit"
-              git push https://github.com/${{ github.repository }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+    - name: Check if stats.json exists
+      run: |
+        if [ -f "stats.json" ]; then
+          echo "stats.json exists."
+        else
+          echo "stats.json does not exist."
+        fi
 
+    - name: Commit and Push stats.json
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions@github.com"
+        git add stats.json
+        git status
+        git commit -m "Update stats.json" || echo "No changes to commit"
+        git push https://github.com/${{ github.repository }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
