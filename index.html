@@ -1,126 +1,97 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LR and MMR Display</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add link tags for Google Fonts (Roboto Mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
 
-    <title>LR and MMR Display</title>
+    <style>
+        /* Set the entire page background to transparent */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            color: black; /* Set the text color to black, change as needed */
+            font-family: 'Roboto Mono', monospace; /* Updated to use Roboto Mono font */
+            font-size: 24px;
+        }
 
-    <style>
+        /* Ensure text appears centered on the screen */
+        .container {
+            text-align: center;
+            background: transparent;
+        }
 
-        /* Set the entire page background to transparent */
+        /* Optional: Make the superscript smaller or adjust its position */
+        sup {
+            font-size: 0.8em; /* Adjust size if needed */
+            vertical-align: super; /* Ensure it is correctly aligned */
+        }
 
-        body, html {
+        .gain {
+            color: green; /* Green for gain */
+        }
 
-            height: 100%;
+        .loss {
+            color: red; /* Red for loss */
+        }
 
-            margin: 0;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            background-color: transparent;
-
-            color: black; /* Set the text color to black, change as needed */
-
-            font-family: Arial, sans-serif;
-
-            font-size: 24px;
-
-        }
-
-
-
-        /* Ensure text appears centered on the screen */
-
-        .container {
-
-            text-align: center;
-
-            background: transparent;
-
-        }
-
-
-
-        /* Optional: Make the superscript smaller or adjust its position */
-
-        sup {
-
-            font-size: 0.8em; /* Adjust size if needed */
-
-            vertical-align: super; /* Ensure it is correctly aligned */
-
-        }
-
-    </style>
-
+        .neutral {
+            color: orange; /* Orange for neutral or +0 */
+        }
+    </style>
 </head>
 
 <body>
+    <div class="container">
+        <!-- Display LR with superscript gain/loss -->
+        <p id="lr"></p>
+        <!-- Display MMR with superscript gain/loss -->
+        <p id="mmr"></p>
+    </div>
 
-    <div class="container">
+    <script>
+        // Fetch stats.json and update the page content dynamically
+        fetch('stats.json')
+            .then(response => response.json())
+            .then(data => {
+                // Get LR and MMR values from stats.json
+                const lrText = data.LR;  // Example: "3359 LR +181"
+                const mmrText = data.MMR; // Example: "3446 MMR +125"
 
-        <!-- Display LR with superscript gain/loss -->
+                // Extract values for LR and MMR
+                const lrValue = lrText.split(' ')[0]; // "3359"
+                const lrChange = lrText.split(' ')[2]; // "+181"
+                const mmrValue = mmrText.split(' ')[0]; // "3446"
+                const mmrChange = mmrText.split(' ')[2]; // "+125"
 
-        <p id="lr"></p>
+                // Function to determine the class for gain/loss color
+                function getChangeClass(change) {
+                    if (change.startsWith('+') && change !== '+0') {
+                        return 'gain'; // Green for gain
+                    } else if (change.startsWith('-')) {
+                        return 'loss'; // Red for loss
+                    } else {
+                        return 'neutral'; // Orange for no change or +0
+                    }
+                }
 
-        <!-- Display MMR with superscript gain/loss -->
-
-        <p id="mmr"></p>
-
-    </div>
-
-
-
-    <script>
-
-        // Fetch stats.json and update the page content dynamically
-
-        fetch('stats.json')
-
-            .then(response => response.json())
-
-            .then(data => {
-
-                // Get LR and MMR values from stats.json
-
-                const lrText = data.LR;  // Example: "3359 LR +181"
-
-                const mmrText = data.MMR; // Example: "3446 MMR +125"
-
-                
-
-                // Extract values for LR and MMR
-
-                const lrValue = lrText.split(' ')[0]; // "3359"
-
-                const lrChange = lrText.split(' ')[2]; // "+181"
-
-                const mmrValue = mmrText.split(' ')[0]; // "3446"
-
-                const mmrChange = mmrText.split(' ')[2]; // "+125"
-
-
-
-                // Update the HTML content with superscript for gain/loss
-
-                document.getElementById('lr').innerHTML = `${lrValue} LR <sup>${lrChange}</sup>`;
-
-                document.getElementById('mmr').innerHTML = `${mmrValue} MMR <sup>${mmrChange}</sup>`;
-
-            })
-
-            .catch(error => console.error('Error loading stats.json:', error));
-
-    </script>
+                // Update the HTML content with superscript for gain/loss
+                document.getElementById('lr').innerHTML = `${lrValue} LR <sup class="${getChangeClass(lrChange)}">${lrChange}</sup>`;
+                document.getElementById('mmr').innerHTML = `${mmrValue} MMR <sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup>`;
+            })
+            .catch(error => console.error('Error loading stats.json:', error));
+    </script>
 
 </body>
 
