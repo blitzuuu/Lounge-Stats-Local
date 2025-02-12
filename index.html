@@ -18,18 +18,20 @@
             height: 100%;
             margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-start; /* Align to the left */
+            align-items: flex-start;  /* Align to the top */
             background-color: transparent;
             color: black; /* Set the text color to black, change as needed */
             font-family: 'Roboto Mono', monospace; /* Updated to use Roboto Mono font */
-            font-size: 24px;
+            font-size: 48px;
+            position: relative; /* Needed for absolute positioning of content */
         }
 
-        /* Ensure text appears centered on the screen */
+        /* Ensure text is positioned in the top-left corner */
         .container {
-            text-align: center;
-            background: transparent;
+            position: absolute; /* Absolute positioning to place the text anywhere on the page */
+            top: 10px;  /* Set distance from the top */
+            left: 10px; /* Set distance from the left */
         }
 
         /* Optional: Make the superscript smaller or adjust its position */
