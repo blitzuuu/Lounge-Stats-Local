@@ -37,17 +37,28 @@ if response.status_code == 200:
             lr_change = "N/A"
             mmr_change = "N/A"
 
-        # Save the data to a JSON file
+        # Handle cases where the change is a negative number
+        if lr_change == "N/A":
+            lr_output = f"{lr} LR N/A"
+        else:
+            lr_output = f"{lr} LR {lr_change}"
+
+        if mmr_change == "N/A":
+            mmr_output = f"{mmr} MMR N/A"
+        else:
+            mmr_output = f"{mmr} MMR {mmr_change}"
+
+        # Create a dictionary to store the formatted results
         data = {
-            "LR": lr,
-            "MMR": mmr,
-            "Recent_LR_Change": lr_change,
-            "Recent_MMR_Change": mmr_change
+            "LR": lr_output,
+            "MMR": mmr_output
         }
 
+        # Save the formatted output to a JSON file
         with open("stats.json", "w") as json_file:
             json.dump(data, json_file, indent=4)
 
         print("Data updated successfully.")
 else:
     print("Failed to fetch data.")
+
