@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LR and MMR Display</title>
@@ -18,20 +17,27 @@
             height: 100%;
             margin: 0;
             display: flex;
-            justify-content: flex-start; /* Align to the left */
-            align-items: flex-start;  /* Align to the top */
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: flex-start; /* Align to the top */
+            align-items: flex-start;  /* Align to the left */
             background-color: transparent;
             color: black; /* Set the text color to black, change as needed */
             font-family: 'Roboto Mono', monospace; /* Updated to use Roboto Mono font */
-            font-size: 48px;
+            font-size: 24px;
             position: relative; /* Needed for absolute positioning of content */
         }
 
-        /* Ensure text is positioned in the top-left corner and does not wrap */
+        /* Ensure text is positioned in the top-left corner */
         .container {
             position: absolute; /* Absolute positioning to place the text anywhere on the page */
             top: 10px;  /* Set distance from the top */
             left: 10px; /* Set distance from the left */
+        }
+
+        /* Prevent wrapping and display LR and MMR on a single line */
+        .header {
+            display: flex; /* Flexbox for horizontal alignment */
+            align-items: center; /* Vertically center the items */
             white-space: nowrap; /* Prevent wrapping of the text */
         }
 
@@ -52,15 +58,31 @@
         .neutral {
             color: orange; /* Orange for neutral or +0 */
         }
+
+        /* Container for subsequent lines to show LR/MMR changes below */
+        .changes {
+            margin-top: 10px; /* Space between the values and their changes */
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <!-- Display LR with superscript gain/loss -->
-        <p id="lr"></p>
-        <!-- Display MMR with superscript gain/loss -->
-        <p id="mmr"></p>
+        <!-- Display LR with gain/loss and superscript on a single line -->
+        <div class="header">
+            <p id="lr"></p>
+            <p id="mmr"></p>
+        </div>
+
+        <!-- Display LR change on second line (with superscript) -->
+        <div class="changes">
+            <p id="lrChange"></p>
+        </div>
+
+        <!-- Display MMR with gain/loss and superscript on third line -->
+        <div class="changes">
+            <p id="mmrChange"></p>
+        </div>
     </div>
 
     <script>
@@ -85,13 +107,19 @@
                     } else if (change.startsWith('-')) {
                         return 'loss'; // Red for loss
                     } else {
-                        return 'neutral'; // Orange for no change or +0
+                        return 'neutral'; // Orange for neutral or +0
                     }
                 }
 
-                // Update the HTML content with superscript for gain/loss right after LR/MMR without space
-                document.getElementById('lr').innerHTML = `${lrValue}<sup class="${getChangeClass(lrChange)}">${lrChange}</sup> LR`;
-                document.getElementById('mmr').innerHTML = `${mmrValue}<sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup> MMR`;
+                // Update the HTML content with superscript for LR and MMR on the first line
+                document.getElementById('lr').innerHTML = `${lrValue} <sup class="${getChangeClass(lrChange)}">${lrChange}</sup> LR`;
+                document.getElementById('mmr').innerHTML = `${mmrValue} <sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup> MMR`;
+
+                // Display LR change only (with superscript) on the second line
+                document.getElementById('lrChange').innerHTML = `${lrValue} <sup class="${getChangeClass(lrChange)}">${lrChange}</sup> LR`;
+
+                // Display MMR change only (with superscript) on the third line
+                document.getElementById('mmrChange').innerHTML = `${mmrValue} <sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup> MMR`;
             })
             .catch(error => console.error('Error loading stats.json:', error));
     </script>
