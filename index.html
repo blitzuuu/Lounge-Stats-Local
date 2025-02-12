@@ -109,11 +109,11 @@
                     }
                 }
 
-                document.getElementById('lr').innerHTML = `${lrValue}<sup class="${getChangeClass(lrChange)}">${lrChange} LR</sup>`;
-                document.getElementById('mmr').innerHTML = `${mmrValue}<sup class="${getChangeClass(mmrChange)}">${mmrChange} MMR</sup>`;
+                document.getElementById('lr').innerHTML = `${lrValue}<sup class="${getChangeClass(lrChange)}">${lrChange}</sup><sup>LR</sup>`;
+                document.getElementById('mmr').innerHTML = `${mmrValue}<sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup><sup>MMR</sup>`;
 
-                document.getElementById('lrChange').innerHTML = `${lrValue}<sup class="${getChangeClass(lrChange)}">${lrChange} LR</sup>`;
-                document.getElementById('mmrChange').innerHTML = `${mmrValue}<sup class="${getChangeClass(mmrChange)}">${mmrChange} MMR</sup>`;
+                document.getElementById('lrChange').innerHTML = `${lrValue}<sup class="${getChangeClass(lrChange)}">${lrChange}</sup><sup>LR</sup>`;
+                document.getElementById('mmrChange').innerHTML = `${mmrValue}<sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup><sup>MMR</sup>`;
             })
             .catch(error => console.error('Error loading stats.json:', error));
     </script>
