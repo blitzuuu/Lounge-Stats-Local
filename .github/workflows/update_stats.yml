@@ -30,8 +30,8 @@ jobs:
 
     - name: Run Python script
       run: |
-        echo "Running Python script to create stats.json"
-        python your-script.py
+        echo "Running LoungeStats.py to create stats.json"
+        python LoungeStats.py
 
     - name: Check if stats.json exists
       run: |
