@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKW Lounge Stats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: black;
+            color: white;
+            font-size: 28px;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .stat {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            width: 300px;
+            font-weight: bold;
+        }
+        .lr { background-color: #4286f4; } /* Blue */
+        .mmr { background-color: #b0f442; } /* Green */
+        .change { background-color: #fc0; } /* Yellow */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="stat lr">LR: <span id="lr">Loading...</span></div><br>
+        <div class="stat mmr">MMR: <span id="mmr">Loading...</span></div><br>
+        <div class="stat change">Recent LR Change: <span id="lrChange">Loading...</span></div><br>
+        <div class="stat change">Recent MMR Change: <span id="mmrChange">Loading...</span></div>
+    </div>
+
+    <script>
+        async function fetchStats() {
+            try {
+                let response = await fetch("https://yourusername.github.io/mkwlounge-obs/stats.json"); // Replace with your actual URL
+                let data = await response.json();
+
+                document.getElementById("lr").innerText = data.LR;
+                document.getElementById("mmr").innerText = data.MMR;
+                document.getElementById("lrChange").innerText = data.Recent_LR_Change;
+                document.getElementById("mmrChange").innerText = data.Recent_MMR_Change;
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchStats();
+    </script>
+</body>
+</html>
