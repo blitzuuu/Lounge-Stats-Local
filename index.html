@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Display</title>
+    <title>LR and MMR Display</title>
     <style>
         /* Set the entire page background to transparent */
         body, html {
@@ -23,12 +23,42 @@
             text-align: center;
             background: transparent;
         }
+
+        /* Optional: Make the superscript smaller or adjust its position */
+        sup {
+            font-size: 0.8em; /* Adjust size if needed */
+            vertical-align: super; /* Ensure it is correctly aligned */
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <p>3359 LR +181</p>
-        <p>3446 MMR +125</p>
+        <!-- Display LR with superscript gain/loss -->
+        <p id="lr"></p>
+        <!-- Display MMR with superscript gain/loss -->
+        <p id="mmr"></p>
     </div>
+
+    <script>
+        // Fetch stats.json and update the page content dynamically
+        fetch('stats.json')
+            .then(response => response.json())
+            .then(data => {
+                // Get LR and MMR values from stats.json
+                const lrText = data.LR;  // Example: "3359 LR +181"
+                const mmrText = data.MMR; // Example: "3446 MMR +125"
+                
+                // Extract values for LR and MMR
+                const lrValue = lrText.split(' ')[0]; // "3359"
+                const lrChange = lrText.split(' ')[2]; // "+181"
+                const mmrValue = mmrText.split(' ')[0]; // "3446"
+                const mmrChange = mmrText.split(' ')[2]; // "+125"
+
+                // Update the HTML content with superscript for gain/loss
+                document.getElementById('lr').innerHTML = `${lrValue} LR <sup>${lrChange}</sup>`;
+                document.getElementById('mmr').innerHTML = `${mmrValue} MMR <sup>${mmrChange}</sup>`;
+            })
+            .catch(error => console.error('Error loading stats.json:', error));
+    </script>
 </body>
 </html>
