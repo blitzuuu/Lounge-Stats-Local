@@ -23,10 +23,11 @@ jobs:
       - name: Run script
         run: python LoungeStats.py
 
-      - name: Commit stats.json
+      - name: Commit and Push stats.json
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions@github.com"
           git add stats.json
-          git commit -m "Update stats.json with latest data"
+          git status # Check which files are staged for commit
+          git commit -m "Update stats.json with latest data" || echo "No changes to commit"
           git push https://github.com/${{ github.repository }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
