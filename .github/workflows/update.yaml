@@ -5,7 +5,13 @@ on:
     - cron: '*/5 * * * *'
   workflow_dispatch:
   pull_request_target:  # Use pull_request_target for security
-
+  
+  push:
+    branches:
+      - main
+    paths:
+      - 'update-pages.yaml'
+      
 jobs:
   update-stats:
     runs-on: ubuntu-latest
