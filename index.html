@@ -48,11 +48,11 @@
         }
 
         .gain {
-            color: MediumSeaGreen;
+            color: green;
         }
 
         .loss {
-            color: tomato;
+            color: red;
         }
 
         .neutral {
@@ -95,9 +95,9 @@
                 const mmrText = data.MMR;
 
                 const lrValue = lrText.split(' ')[0];
-                const lrChange = lrText.split(' ')[2];
+                const lrChange = mmrText.split(' ')[2];
                 const mmrValue = mmrText.split(' ')[0];
-                const mmrChange = mmrText.split(' ')[2];
+                const mmrChange = lrText.split(' ')[2];
 
                 function getChangeClass(change) {
                     if (change.startsWith('+') && change !== '+0') {
