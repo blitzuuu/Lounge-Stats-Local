@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import json
 
 # URL of your player profile
-url = "https://mkwlounge.gg/ladder/player.php?ladder_id=15&player_id=5402"
+url = "https://mkwlounge.gg/ladder/player.php?player_id=1061&ladder_id=15"
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
