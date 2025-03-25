@@ -99,22 +99,8 @@
             }
         }
 
-        async function runLoungeStats() {
-            try {
-                const response = await fetch('/run-lounge-stats');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                console.log('LoungeStats.py output:', result.output);
-            } catch (error) {
-                console.error('Error running LoungeStats.py:', error);
-            }
-        }
-
-        // Fetch data every minute
-        setInterval(fetchData, 60 * 1000);
-        setInterval(runLoungeStats, 60 * 1000);
+        // Fetch data every 30 seconds
+        setInterval(fetchData, 30 * 1000);
 
         // Initial fetch
         fetchData();
