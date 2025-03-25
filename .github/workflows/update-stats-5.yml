@@ -5,6 +5,9 @@ on:
     # Runs every 5 minutes, offset by 4 minutes from the first workflow
     - cron: '4-59/5 * * * *'
 
+permissions:
+  contents: write
+
 jobs:
   update-stats:
     runs-on: ubuntu-latest
