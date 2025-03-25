@@ -1,4 +1,4 @@
-i<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,7 +23,7 @@ i<!DOCTYPE html>
             background-color: transparent;
             color: white;
             font-family: 'Roboto Mono', monospace;
-            font-size: 48px;
+            font-size: 26px;
             position: relative;
         }
 
@@ -88,9 +88,10 @@ i<!DOCTYPE html>
     </div>
 
     <script>
-        fetch('stats.json')
-            .then(response => response.json())
-            .then(data => {
+        async function fetchData() {
+            try {
+                const response = await fetch('stats.json');
+                const data = await response.json();
                 const lrText = data.LR;
                 const mmrText = data.MMR;
 
@@ -114,8 +115,16 @@ i<!DOCTYPE html>
 
                 document.getElementById('lrChange').innerHTML = `LR: ${lrValue}<sup class="${getChangeClass(lrChange)}">${lrChange}</sup>`;
                 document.getElementById('mmrChange').innerHTML = `MMR: ${mmrValue}<sup class="${getChangeClass(mmrChange)}">${mmrChange}</sup>`;
-            })
-            .catch(error => console.error('Error loading stats.json:', error));
+            } catch (error) {
+                console.error('Error loading stats.json:', error);
+            }
+        }
+
+        // Fetch data every minute
+        setInterval(fetchData, 60 * 1000);
+
+        // Initial fetch
+        fetchData();
     </script>
 </body>
 
