@@ -2,15 +2,10 @@ name: Update Stats
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
-  workflow_dispatch:
-  pull_request_target:  # Use pull_request_target for security
-  
+    - cron: '*/5 * * * *'  # This will run the workflow every minute
   push:
     branches:
       - main
-    paths:
-      - 'update-pages.yaml'
       
 jobs:
   update-stats:
